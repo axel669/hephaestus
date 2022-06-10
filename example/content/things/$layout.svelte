@@ -1,0 +1,5 @@
+<div>
+    Things!
+</div>
+
+<slot />
