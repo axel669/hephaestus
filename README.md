@@ -148,3 +148,7 @@ export default {
     }
 }
 ```
+
+## TODO
+- possibly add more hooks around build events
+Open to sugestions for features.
