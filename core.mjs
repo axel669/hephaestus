@@ -44,7 +44,6 @@ async function prepLayouts(sourceDir, files) {
         const dirname = dir.join("/")
 
         console.log("Loading layout:", file)
-        // const componentInfo = loadComponent(`./${sourceDir}/${file}`)
         const componentInfo = loadComponent(
             path.resolve(
                 sourceDir,
@@ -73,7 +72,6 @@ async function prepPages(dir, files, layouts) {
             .replace(/\.svelte$/, "")
             .replace(/\/index$/, "/")
         console.log("Loading page:", file)
-        // const pageInfo = loadComponent(`./${dir}/${file}`)
         const pageInfo = loadComponent(
             path.resolve(
                 dir,

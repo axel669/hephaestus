@@ -145,7 +145,12 @@ export default {
         //  Hook that is run after all files have been written to disk.
         async done() {
         }
-    }
+    },
+
+    //  Directory for static files that will be copied into the output folder
+    //  after building the html files.
+    //  Optional
+    "staticFiles?": "static"
 }
 ```
 

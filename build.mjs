@@ -26,17 +26,37 @@ async function generateErrorPage(source, dest, errorFile) {
         injectHTML(content)
     )
 }
-async function build(config) {
+async function cleanup(dir, devMode) {
+    if (devMode === false) {
+        return
+    }
+
+    console.log("Cleaning up existing dest folder")
+    await fs.removeAsync(dir)
+}
+async function moveStatic(staticFiles, dest) {
+    if (await fs.existsAsync(staticFiles) === false) {
+        console.log(`Static file directory "${staticFiles}" doesn't exist`)
+        return
+    }
+    console.log(`Copying static files into ${dest}`)
+    await fs.copyAsync(staticFiles, dest, { overwrite: true })
+    console.log("Static files copied")
+}
+async function build(config, devMode = false) {
     const {
         source,
         error,
         dest,
-        hooks,
+        hooks = {},
+        staticFiles = null
     } = config
     const {
         init = () => { },
         done = () => { },
     } = hooks
+
+    await cleanup(dest, devMode)
 
     await init()
     const pages = await scan(source)
@@ -60,6 +80,8 @@ async function build(config) {
     }
 
     await generateErrorPage(source, dest, error)
+
+    await moveStatic(staticFiles, dest)
 
     await done()
 }

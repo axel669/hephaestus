@@ -5,7 +5,7 @@ import url from "url"
 
 import build from "./build.mjs"
 
-const [, , configFile] = process.argv
+const [, , configFile, devFlag] = process.argv
 
 if (configFile === undefined) {
     console.log("no config file given")
@@ -18,4 +18,7 @@ const config = await import(
     )
 )
 
-await build(config.default)
+await build(
+    config.default,
+    devFlag === "dev"
+)
